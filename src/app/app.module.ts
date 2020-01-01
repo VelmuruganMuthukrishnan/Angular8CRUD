@@ -7,7 +7,7 @@ import { ListEmployeesComponent } from './employees/list-employees.component';
 import { CreateEmployeeComponent } from './employees/create-employee.component';
 import { createComponent } from '@angular/compiler/src/core';
 import {FormsModule} from '@angular/forms';
-
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 
 const appRoutes:Routes=[
   {path:'List',component:ListEmployeesComponent},
@@ -27,7 +27,8 @@ const appRoutes:Routes=[
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    BsDatepickerModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

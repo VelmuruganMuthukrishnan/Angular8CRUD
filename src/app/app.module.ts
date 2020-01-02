@@ -8,7 +8,8 @@ import { CreateEmployeeComponent } from './employees/create-employee.component';
 import { createComponent } from '@angular/compiler/src/core';
 import {FormsModule} from '@angular/forms';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
 const appRoutes:Routes=[
   {path:'List',component:ListEmployeesComponent},
   {path:'Create',component:CreateEmployeeComponent},
@@ -25,10 +26,12 @@ const appRoutes:Routes=[
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
     AppRoutingModule,
     FormsModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+   
   ],
   providers: [],
   bootstrap: [AppComponent]

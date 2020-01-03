@@ -1,40 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import {Employee} from '../models/employee.models';
+import { Employee } from '../models/employee.models';
+import { EmployeeService } from './employee.service';
 @Component({
- 
+
   templateUrl: './list-employees.component.html',
   styleUrls: ['./list-employees.component.scss']
 })
 export class ListEmployeesComponent implements OnInit {
-employees:Employee[]=[
-  {
-    id:1,
-    name:'Vel',
-    gender:'Male',
-    phoneNumber:9994184681,
-    contactPreference:'Email',
-    email:'velmurugan.m8@gmail.com',
-    dateOfBirth:new Date('05/18/1980'),
-    department:'IT',
-    isActive:true,
-    photopPath:'assets/images/vel.jfif'
-  },
-  {
-    id:2,
-    name:'Murugan',
-    gender:'Male',
-    phoneNumber:9789857910,
-    contactPreference:'Email',
-    email:'velmurugancse80@gmail.com',
-    dateOfBirth:new Date('10/18/1980'),
-    department:'CSE',
-    isActive:true,
-    photopPath:'assets/images/download1.jfif' 
-  }
-]
-  constructor() { }
+  employees: Employee[];
+  employeeToDisplay: Employee;
+  private arrayIndex = 1;
+  constructor(private _employeeService: EmployeeService) { }
 
   ngOnInit() {
+    this.employees = this._employeeService.getEmployees();
+    this.employeeToDisplay = this.employees[0];
   }
 
+  nextEmployee(): void {
+    if (this.arrayIndex <= 2) {
+      this.employeeToDisplay = this.employees[this.arrayIndex];
+      this.arrayIndex++;
+    }
+    else {
+      this.employeeToDisplay = this.employees[0];
+      this.arrayIndex = 1;
+    }
+
+  }
 }

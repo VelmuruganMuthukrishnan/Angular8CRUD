@@ -1,62 +1,65 @@
 import { Component, OnInit, } from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {Department} from '../models/department.models';
+import { NgForm } from '@angular/forms';
+import { Department } from '../models/department.models';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker/public_api';
-import {Employee} from '../models/employee.models';
+import { Employee } from '../models/employee.models';
+import { EmployeeService } from './employee.service';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-create-employee',
   templateUrl: './create-employee.component.html',
   styleUrls: ['./create-employee.component.scss']
 })
 export class CreateEmployeeComponent implements OnInit {
- // dateofbirth:Date=new Date(2020,0,3);
-  
-  
-  datePickerCnfig:Partial<BsDatepickerConfig>;
-previewPhoto=false;
-employee:Employee={
-  id:null,
-  name:null,
-  gender:null,
-  contactPreference:null,
-  phoneNumber:null,
-  email:null,
-  dateOfBirth:null,
-  department:null,
-  isActive:null,
-  photopPath:null
+  // dateofbirth:Date=new Date(2020,0,3);
+
+
+  datePickerCnfig: Partial<BsDatepickerConfig>;
+  previewPhoto = false;
+  employee: Employee = {
+    id: null,
+    name: null,
+    gender: null,
+    contactPreference: null,
+    phoneNumber: null,
+    email: null,
+    dateOfBirth: null,
+    department: '-1',
+    isActive: null,
+
+    photopPath: null
   };
-departments:Department[]=[
-  {id: 1, name:'Help Desk'},
-  {id :2,name:'CSE'},
-  {id :3,name:'IT'},
-  {id:4 ,name:'ECE'}
-];
-gender='male';
+  departments: Department[] = [
+    { id: 1, name: 'Help Desk' },
+    { id: 2, name: 'CSE' },
+    { id: 3, name: 'IT' },
+    { id: 4, name: 'ECE' }
+  ];
+  gender = 'male';
 
-  constructor() { 
-    this.datePickerCnfig=Object.assign({},
+  constructor(private _employeeService: EmployeeService, private _router: Router) {
+    this.datePickerCnfig = Object.assign({},
       {
-      containerClass:'theme-dark-blue',
-     // showWeekNumbers:false,
-     // minDate:new Date(2020,0,1),
-      //maxDate:new Date(2020,11,31),
-      dateInputFormat:'DD/MM/YYYY'
+        containerClass: 'theme-dark-blue',
+        // showWeekNumbers:false,
+        // minDate:new Date(2020,0,1),
+        //maxDate:new Date(2020,11,31),
+        dateInputFormat: 'DD/MM/YYYY'
 
-    }
-      );
+      }
+    );
 
   }
-  togglePhotoPreview()
-  {
+  togglePhotoPreview() {
     this.previewPhoto = !this.previewPhoto;
   }
   ngOnInit() {
   }
 
-  saveEmployee(newEmployee:Employee):void
-  {
-    console.log(newEmployee);
+  saveEmployee(): void {
+    this._employeeService.save(this.employee);
+    this._router.navigate(['List']);
   }
- 
+
 }

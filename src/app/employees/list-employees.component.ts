@@ -9,6 +9,7 @@ import { EmployeeService } from './employee.service';
 export class ListEmployeesComponent implements OnInit {
   employees: Employee[];
   employeeToDisplay: Employee;
+  dataFromChild:Employee;
   private arrayIndex = 1;
   constructor(private _employeeService: EmployeeService) { }
 
@@ -16,7 +17,10 @@ export class ListEmployeesComponent implements OnInit {
     this.employees = this._employeeService.getEmployees();
     this.employeeToDisplay = this.employees[0];
   }
-
+handleNotify(evenData:Employee)
+{
+this.dataFromChild=evenData;
+}
   nextEmployee(): void {
     if (this.arrayIndex <= 2) {
       this.employeeToDisplay = this.employees[this.arrayIndex];

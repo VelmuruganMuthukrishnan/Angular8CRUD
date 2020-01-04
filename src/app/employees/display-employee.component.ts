@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges,Output, EventEmitter } from '@angular/core';
 import { Employee } from '../models/employee.models';
 
 @Component({
@@ -7,8 +7,12 @@ import { Employee } from '../models/employee.models';
   styleUrls: ['./display-employee.component.scss']
 })
 export class DisplayEmployeeComponent implements OnInit {
-  private _employee: Employee;
+  
+  @Input() employee1:Employee;
 
+ // @Output() notify:EventEmitter<Employee>=new EventEmitter<Employee>();
+  
+  private _employee: Employee;
   @Input() employeeId: number;
 
   @Input()
@@ -36,7 +40,10 @@ export class DisplayEmployeeComponent implements OnInit {
 
   ngOnInit() {
   }
-
+// handleClick()
+// {
+//   this.notify.emit(this.employee);
+// }
   // {
   // ngOnChanges(changes:SimpleChanges)
   // {
@@ -46,5 +53,9 @@ export class DisplayEmployeeComponent implements OnInit {
   //   console.log('Current:'+ currentEmployee.name);
 
   // }
+  getEmployeeNameAndGender():string
+  {
+    return this.employee.name+''+this.employee.gender;
+  }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges,Output, EventEmitter } from '@angular/core';
 import { Employee } from '../models/employee.models';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-display-employee',
@@ -14,6 +15,7 @@ export class DisplayEmployeeComponent implements OnInit {
   
   private _employee: Employee;
   @Input() employeeId: number;
+  private selectedEmployeeId: number;
 
   @Input()
   set employee(val: Employee) {
@@ -36,9 +38,10 @@ export class DisplayEmployeeComponent implements OnInit {
   //    console.log(propName);
     }
   }
-  constructor() { }
+  constructor(private _route:ActivatedRoute) { }
 
   ngOnInit() {
+    this.selectedEmployeeId=+this._route.snapshot.paramMap.get('id');
   }
 // handleClick()
 // {

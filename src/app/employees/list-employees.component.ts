@@ -8,20 +8,32 @@ import { Router } from '@angular/router';
   styleUrls: ['./list-employees.component.scss']
 })
 export class ListEmployeesComponent implements OnInit {
+  
   employees: Employee[];
+  filterdEmployees:Employee[];
+  serachTerm: string;
   employeeToDisplay: Employee;
-  dataFromChild:Employee;
+  dataFromChild: Employee;
+  private _searchTerm:string;
   private arrayIndex = 1;
-  constructor(private _employeeService: EmployeeService,private _router:Router) { }
+  get searchTerm1():string{
+    return this._searchTerm;
+  }
+  set searchTerm1(value:string)
+  {
+    this._searchTerm=value;
+    this.filterdEmployees=this.filterEmployees(value);
+  }
+  constructor(private _employeeService: EmployeeService, private _router: Router) { }
 
   ngOnInit() {
     this.employees = this._employeeService.getEmployees();
     this.employeeToDisplay = this.employees[0];
+    this.filterdEmployees=this.employees;
   }
-handleNotify(evenData:Employee)
-{
-this.dataFromChild=evenData;
-}
+  handleNotify(evenData: Employee) {
+    this.dataFromChild = evenData;
+  }
   nextEmployee(): void {
     if (this.arrayIndex <= 2) {
       this.employeeToDisplay = this.employees[this.arrayIndex];
@@ -34,8 +46,18 @@ this.dataFromChild=evenData;
 
   }
 
-  onClick(employeeId:number)
+  onClick(employeeId: number) {
+    this._router.navigate(['employees/', employeeId]);
+  }
+  changeEmployeeName()
   {
-this._router.navigate(['employees/',employeeId]);
+    //const newEmployeeArray:Employee[]=Object.assign([], this.employees);
+  this.employees[0].name='Dushyant';
+  this.filterdEmployees=this.filterEmployees(this.searchTerm1);
+  //  this.employees=newEmployeeArray;
+  }
+
+  filterEmployees(searchString: string) {
+    return this.employees.filter(employee => employee.name.toLowerCase().indexOf(searchString.toLowerCase()) !== -1);
   }
 }

@@ -52,7 +52,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes,{enableTracing:true}),
     AppRoutingModule,
     FormsModule,
 

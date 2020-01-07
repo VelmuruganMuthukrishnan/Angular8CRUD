@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Employee } from '../models/employee.models';
+import { Observable } from 'rxjs/Observable';
+
+import 'rxjs/add/observable/of';
 
 @Injectable()
 export class EmployeeService
@@ -31,8 +34,8 @@ private listEmployees:Employee[]=[
       }
 ];
 
-getEmployees():Employee[]{
-    return this.listEmployees;
+getEmployees():Observable<Employee[]>{
+    return Observable.of(this.listEmployees);
 }
 
 getEmployee(id:number):Employee{ 

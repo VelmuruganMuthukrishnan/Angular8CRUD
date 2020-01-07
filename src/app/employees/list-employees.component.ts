@@ -27,7 +27,7 @@ export class ListEmployeesComponent implements OnInit {
   constructor(private _employeeService: EmployeeService, private _router: Router) { }
 
   ngOnInit() {
-    this.employees = this._employeeService.getEmployees();
+    this._employeeService.getEmployees().subscribe(empList=>this.employees=empList);
     this.employeeToDisplay = this.employees[0];
     this.filterdEmployees=this.employees;
   }
